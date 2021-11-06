@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Topnav from "./component/Topnav";
+import Sidenav from "./component/sidenav"
+import Items from "./component/items"
 
 function App() {
+  const [favorite,setfavorite] = useState(false);
+  const [cart,setcart] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <Topnav setfavorite={setfavorite} favorite={favorite} cart={cart} setcart={setcart}/>
+    <div className="main">
+      <div><Sidenav favorite={favorite} cart={cart}/></div>
+      <div><Items favorite={favorite} cart={cart}/></div> 
+    </div>
     </div>
   );
 }
-
 export default App;
