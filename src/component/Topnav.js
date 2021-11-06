@@ -10,7 +10,7 @@ const {favorite,setfavorite,cart,setcart} = props;
 return <>
 <div className="top-nav">
 <div className="logo">
-    <div className="title" onClick ={()=>setfavorite(false),()=>setcart(false)}>
+    <div className="title" onClick ={()=>[setfavorite(false),setcart(false)]}>
         <ShoppingBasketIcon id="basket"/>
 <h1>Shop-In</h1></div>
 <h4 className={`${(favorite||cart)?"display":"gender"}`}>Men</h4>
