@@ -12,7 +12,7 @@ return <>
 <div className="logo">
     <div className="title" onClick ={()=>[setfavorite(false),setcart(false)]}>
         <ShoppingBasketIcon id="basket"/>
-<h1>Shop-In</h1></div>
+<h1 id="heading">Shop-In</h1></div>
 <h4 className={`${(favorite||cart)?"display":"gender"}`}>Men</h4>
 <h4 className={`${(favorite||cart)?"display":"gender"}`}>Women</h4>
 </div>
@@ -23,8 +23,8 @@ return <>
     </div>
     <hr/>
     <h4 className={`${(favorite||cart)?"display":""}`} id="login">Login</h4>
-   <FavoriteBorderIcon onClick ={()=>setfavorite(true)}  className={`${favorite?"clicked":""}`} id={`${cart?"display":"favorite-icon"}`}/>
-  <LocalMallIcon onClick ={()=>setcart(true)}  className={`${cart?"clicked":""}`} id={`${favorite?"display":"bag-icon"}`}/>
+   <FavoriteBorderIcon onClick ={()=>[setfavorite(true),setcart(false)]}  className={`${favorite?"clicked":"nav-icon"}`}/>
+  <LocalMallIcon onClick ={()=>[setcart(true),setfavorite(false)]}  className={`${cart?"clicked":"nav-icon"}`} />
 </div>
 </div>
 <hr/>

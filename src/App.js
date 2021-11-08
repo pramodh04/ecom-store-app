@@ -12,7 +12,7 @@ function App() {
     <Topnav setfavorite={setfavorite} favorite={favorite} cart={cart} setcart={setcart}/>
     <div className="main">
       <div><Sidenav favorite={favorite} cart={cart}/></div>
-      <div><Items favorite={favorite} cart={cart}/></div> 
+      <div><Items favorite={favorite} cart={cart} setfavorite={setfavorite} setcart={setcart}/></div> 
     </div>
     </div>
   );

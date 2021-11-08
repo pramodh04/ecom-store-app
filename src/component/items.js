@@ -5,7 +5,7 @@ import Cart from "./cart"
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 
 const Items =(props)=>{
-    const {favorite,cart} = props;
+    const {favorite,cart,setfavorite,setcart} = props;
     const [items,setitem] = useState(data);
     const [fav,setfav] = useState([]);
     const [bag,setbag] = useState([]);
@@ -35,7 +35,8 @@ let totalcost=0;
 bag.map((item)=>{
     totalcost += parseInt(item.cost);
 })
-
+let discount = parseInt(0.3 * totalcost) ;
+console.log(discount);
  const handleunfav =(item)=>{
     let unfavlist = fav.filter((singleitem)=>singleitem !== item);
     setfav(unfavlist);
@@ -70,9 +71,13 @@ bag.map((item)=>{
                    <div className="price">
                    <h4 className="pricesummary">Price Summary</h4>
         <ul>
-            <li className="cart-list-item">Total MRP(including all taxes) :    <i class="fas fa-rupee-sign"> {totalcost}</i></li>
-            <li className="cart-list-item">Delivery charges :     FREE</li>            
-        <li className="cart-list-item">subTotal :  <i class="fas fa-rupee-sign"> {totalcost}</i></li>
+            <li className="cart-list-item">Total MRP(including all taxes) :    <i class="fas fa-rupee-sign"> {totalcost+discount}</i></li>
+            <li className="cart-list-item">Bag Discount : <i class="fas fa-rupee-sign"> {discount}</i></li>
+            <li className="cart-list-item">Delivery charges : <span>FREE</span>    </li>
+                      
+        <li className="cart-list-item">  subTotal : 
+        <i class="fas fa-rupee-sign"> {totalcost}</i> </li>
+        <li className="cart-list-item" id="list-discount"> Congratulations! You save Rs.{discount} on this order. </li>  
         </ul>
         <h3 id="total">Total :  <i class="fas fa-rupee-sign">  {totalcost}</i>  </h3>
                    </div>
@@ -83,23 +88,47 @@ bag.map((item)=>{
                 }else{
                     return(
                         <div className="cart-empty">
-                          <h1>Your Bag is Empty</h1>
+                         <div className="wishlist-empty">
+           <img src="https://images.bewakoof.com/images/doodles/empty-cart-page-doodle.png" alt="empty-cards" className="empty-img"/>
+           <h2 >Your Bag is Empty!</h2>
+           <h2 id="continue-shopping" onClick={()=>setcart(false)}>Continue Shopping</h2>
+         </div>
                         </div>
                     );
                 }
   }else
   {
-    return(<>
-        <div className="items">
-            {
-                itemslist.map((item,index)=>{
-                    return(
-                       <Card key={index} item={item} id={index} handlefav={handlefav} isFav={isfav(item)} handleunfav={handleunfav} handlebag={handlebag} isbag={isbag(item)}/> 
-                    );
-                })
-            }
-        </div>
-        </>);
+      if(itemslist < 1 && favorite)
+      {
+         return <>
+         <div className="wishlist-empty">
+           <img src="https://images.bewakoof.com/web/group-3x-1509961969.png" alt="empty-cards" className="empty-img"/>
+           <h2 >Your Wishlist is Empty!</h2>
+           <h2 id="continue-shopping" onClick={()=>setfavorite(false)}>Continue Shopping</h2>
+         </div>
+         </>
+      }else{
+        return(<>
+            <div>
+            <h2 className={`${favorite?"wishlist-title":"display"}`}>
+                    WISHLIST
+                </h2>
+            
+            <div className="items"  id = {`${favorite?"wishlist":""}`}>
+                
+                {
+                    itemslist.map((item,index)=>{
+                        return(
+                           <Card key={index} item={item} id={index} handlefav={handlefav} isFav={isfav(item)} handleunfav={handleunfav} handlebag={handlebag} isbag={isbag(item)}/> 
+                        );
+                    })
+                }
+            </div>
+            </div>
+            
+            </>);
+      }
+   
   }
 }
 export default Items;
